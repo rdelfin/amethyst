@@ -286,6 +286,7 @@ where
         event: &ControllerEvent,
         event_handler: &mut EventChannel<InputEvent<T>>,
     ) {
+        println!("There was a controller event!");
         use self::ControllerEvent::*;
 
         match *event {
@@ -306,6 +307,10 @@ where
                 }
             }
             ControllerButtonPressed { which, button } => {
+                println!(
+                    "Controller button pressed. which: {:?}, button: {:?}",
+                    which, button
+                );
                 if let Some(controller_id) = self.controller_idx_to_id(which) {
                     if self
                         .pressed_controller_buttons
@@ -339,6 +344,10 @@ where
                 }
             }
             ControllerButtonReleased { which, button } => {
+                println!(
+                    "Controller button released. which: {:?}, button: {:?}",
+                    which, button
+                );
                 if let Some(controller_id) = self.controller_idx_to_id(which) {
                     let index = self
                         .pressed_controller_buttons
@@ -374,6 +383,7 @@ where
                 }
             }
             ControllerConnected { which } => {
+                println!("Controller connected. which: {:?}", which);
                 if self.controller_idx_to_id(which).is_none() {
                     let controller_id = self.alloc_controller_id();
                     if self
@@ -386,6 +396,7 @@ where
                 }
             }
             ControllerDisconnected { which } => {
+                println!("Controller disconnected. which: {:?}", which);
                 if let Some(controller_id) = self.controller_idx_to_id(which) {
                     let index = self
                         .connected_controllers
