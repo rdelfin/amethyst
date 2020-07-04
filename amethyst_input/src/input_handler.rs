@@ -290,6 +290,7 @@ where
 
         match *event {
             ControllerAxisMoved { which, axis, value } => {
+                println!("Controller axis moved. which: {:?}, axis: {:?}, value: {:?}");
                 if let Some(controller_id) = self.controller_idx_to_id(which) {
                     self.controller_axes
                         .iter_mut()
